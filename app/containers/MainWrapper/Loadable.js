@@ -1,6 +1,6 @@
 /**
  *
- * Asynchronously loads the component for HomeNav
+ * Asynchronously loads the component for MainWrapper
  *
  */
 

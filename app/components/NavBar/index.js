@@ -14,18 +14,10 @@ import messages from './messages';
 
 class NavBar extends React.Component {
   render() {
-    const menuLinkItems = [
-      {
-        name: 'home',
-        to: '/home',
-      },
-    ];
     return (
       <div>
-        <Menu size="large" color="blue">
-          {menuLinkItems.map((item, index) => (
-            <Menu.Item as={NavLink} {...item} key={index} />
-          ))}
+        <Menu color="blue">
+          <Menu.Item as={Link} to="/" icon="favorite" />
 
           <Menu.Menu position="right">
             <Menu.Item>

@@ -1,6 +1,6 @@
 /**
  *
- * HomeNav
+ * SideNavBar
  *
  */
 
@@ -15,37 +15,19 @@ import { Dropdown, Menu } from 'semantic-ui-react';
 import messages from './messages';
 
 /* eslint-disable react/prefer-stateless-function */
-export class HomeNav extends React.Component {
-  static propTypes = {
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
-  };
-
+export class SideNavBar extends React.Component {
   render() {
-    const profileLinkItems = [
-      {
-        exact: true,
-        to: this.props.match.path,
-        name: 'dashboard',
-      },
-      {
-        to: `${this.props.match.path}/myorders`,
-        name: 'myOrders',
-      },
-    ];
     return (
       <div>
         <Menu secondary vertical>
-          {profileLinkItems.map((item, index) => (
-            <Menu.Item as={NavLink} {...item} key={index} />
-          ))}
+          <Menu.Item as={NavLink} to="/dashboard" name="dashboard" />
+          <Menu.Item as={NavLink} to="/myorders" name="myOrders" />
         </Menu>
       </div>
     );
   }
 }
-HomeNav.propTypes = {
+SideNavBar.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
@@ -60,4 +42,4 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default withRouter(compose(withConnect)(HomeNav));
+export default withRouter(compose(withConnect)(SideNavBar));

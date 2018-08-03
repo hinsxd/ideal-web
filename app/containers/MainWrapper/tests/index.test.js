@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import { HomeNav } from '../index';
+// import { MainWrapper } from '../index';
 
-describe('<HomeNav />', () => {
+describe('<MainWrapper />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import NavBar from 'components/NavBar';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,11 +14,6 @@ import H1 from 'components/H1';
 function Header() {
   return (
     <div>
-      <div>
-        <Link to="/">
-          <H1>Ideal Logo</H1>
-        </Link>
-      </div>
       <NavBar />
     </div>
   );
