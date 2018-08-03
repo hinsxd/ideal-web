@@ -13,17 +13,47 @@
 
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import styled from 'styled-components';
 
-import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Header from 'containers/Header';
+import HomePage from 'containers/HomePage';
+import WelcomePage from 'containers/WelcomePage/Loadable';
+
+const Wrapper = styled.div`
+  margin: 0 auto;
+  max-width: 70rem;
+  * {
+    box-sizing: border-box;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  padding: 1rem;
+`;
+
+const routes = [
+  {
+    exact: true,
+    path: '/',
+    component: WelcomePage,
+  },
+  {
+    path: '/home',
+    component: HomePage,
+  },
+];
 
 export default function App() {
   return (
-    <div>
-      <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route component={NotFoundPage} />
-      </Switch>
-    </div>
+    <Wrapper>
+      <Header />
+      <ContentWrapper>
+        <Switch>
+          {routes.map((route, index) => <Route {...route} key={index} />)}
+          <Route component={NotFoundPage} />
+        </Switch>
+      </ContentWrapper>
+    </Wrapper>
   );
 }
