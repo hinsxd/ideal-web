@@ -12,15 +12,17 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import messages from './messages';
-import HomeDashboardPage from 'containers/HomeDashboardPage';
-import HomeMyOrdersPage from 'containers/HomeMyOrdersPage';
+import DashboardPage from 'containers/DashboardPage';
+import MyOrdersPage from 'containers/MyOrdersPage';
+import BalancePage from 'containers/BalancePage/Loadable';
 /* eslint-disable react/prefer-stateless-function */
 const HomePage = () => (
   <div>
     <Switch>
-      <Route path="/" exact={true} component={HomeDashboardPage} />
-      <Route path="/dashboard" component={HomeDashboardPage} />
-      <Route path="/myorders" component={HomeMyOrdersPage} />
+      <Route path="/" exact={true} component={DashboardPage} />
+      <Route path="/dashboard" component={DashboardPage} />
+      <Route path="/myorders" component={MyOrdersPage} />
+      <Route path="/balance" component={BalancePage} />
     </Switch>
   </div>
 );

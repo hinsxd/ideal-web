@@ -22,6 +22,7 @@ import MainWrapper from 'containers/MainWrapper/Loadable';
 const Wrapper = styled.div`
   margin: 0 auto;
   max-width: 100%vw;
+  max-height: 100%vh;
   * {
     box-sizing: border-box;
   }

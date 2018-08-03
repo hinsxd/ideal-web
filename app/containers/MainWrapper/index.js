@@ -20,10 +20,12 @@ const MainPageWrapper = styled.div`
   max-width: 85rem;
   display: flex;
   flex-direction: row;
+  padding: 1rem;
 `;
 
 const ContentPageWrapper = styled.div`
-  padding: 1rem;
+  padding: 1.5rem;
+  flex-grow: 1;
 `;
 
 /* eslint-disable react/prefer-stateless-function */
@@ -34,24 +36,18 @@ export default class MainWrapper extends React.Component {
   };
   render() {
     return (
-      <div>
-        {this.state.auth ? (
-          <MainPageWrapper>
-            <SideNavBar />
-            <ContentPageWrapper>
-              <Switch>
-                <Route path="/" component={HomePage} />
-                <Redirect to="/" />
-              </Switch>
-            </ContentPageWrapper>
-          </MainPageWrapper>
-        ) : (
+      <MainPageWrapper>
+        <SideNavBar />
+        <ContentPageWrapper>
           <Switch>
-            <Route exact path="/" component={WelcomePage} />
+            <Route
+              path="/:path(|dashboard|myorders|balance)"
+              component={HomePage}
+            />
             <Redirect to="/" />
           </Switch>
-        )}
-      </div>
+        </ContentPageWrapper>
+      </MainPageWrapper>
     );
   }
 }

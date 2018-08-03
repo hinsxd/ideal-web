@@ -22,6 +22,7 @@ export class SideNavBar extends React.Component {
         <Menu secondary vertical>
           <Menu.Item as={NavLink} to="/dashboard" name="dashboard" />
           <Menu.Item as={NavLink} to="/myorders" name="myOrders" />
+          <Menu.Item as={NavLink} to="/balance" name="balance" />
         </Menu>
       </div>
     );
