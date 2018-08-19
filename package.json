@@ -148,6 +148,7 @@
     "@blueprintjs/core": "^3.0.1",
     "@blueprintjs/icons": "^3.0.0",
     "babel-polyfill": "6.26.0",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^4.1.3",
     "chalk": "^2.4.1",
     "compression": "1.7.2",

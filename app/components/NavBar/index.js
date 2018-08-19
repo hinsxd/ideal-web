@@ -5,31 +5,50 @@
  */
 
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { Link, NavLink, withRouter } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button, Menu } from 'semantic-ui-react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import { Button, Menu, Icon } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 class NavBar extends React.Component {
   render() {
     return (
-      <div>
-        <Menu color="blue">
-          <Menu.Item as={Link} to="/" icon="favorite" />
-
-          <Menu.Menu position="right">
+      <Menu fixed="top">
+        <Menu.Menu position="right">
+          {this.props.loggedIn ? (
             <Menu.Item>
-              <Button primary>Log Out</Button>
+              <Button primary onClick={() => this.props.dispatch(logout())}>
+                Log Out
+              </Button>
             </Menu.Item>
-          </Menu.Menu>
-        </Menu>
-      </div>
+          ) : (
+            <Menu.Item>
+              <Button as={Link} to="/login">
+                Sign In
+              </Button>
+              <Button primary as={Link} to="/register">
+                Register
+              </Button>
+            </Menu.Item>
+          )}
+        </Menu.Menu>
+      </Menu>
     );
   }
 }
 
-NavBar.propTypes = {};
+NavBar.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  loggedIn: PropTypes.bool,
+};
+function mapStateToProps(state) {
+  return {
+    loggedIn: state.getIn(['global', 'loggedIn']),
+  };
+}
+const withConnect = connect(mapStateToProps);
 
-export default NavBar;
+export default compose(withConnect)(NavBar);

@@ -12,14 +12,18 @@
  */
 
 import React from 'react';
-
 import styled from 'styled-components';
+import { Switch, Route, withRouter } from 'react-router-dom';
+import NavBar from 'components/NavBar';
 
-import Header from 'containers/Header';
-
-import MainWrapper from 'containers/MainWrapper/Loadable';
-
-const Wrapper = styled.div`
+import LeftSideBar from 'components/LeftSideBar';
+import RightSideBar from 'components/RightSideBar';
+import HomePage from 'containers/HomePage';
+import MyOrdersPage from 'containers/MyOrdersPage';
+import OrdersPage from 'containers/OrdersPage';
+import OrderPage from 'containers/OrderPage';
+import ProfilePage from 'containers/ProfilePage';
+const AppWrapper = styled.div`
   margin: 0 auto;
   max-width: 100%vw;
   max-height: 100%vh;
@@ -28,11 +32,52 @@ const Wrapper = styled.div`
   }
 `;
 
-export default function App() {
-  return (
-    <Wrapper>
-      <Header />
-      <MainWrapper />
-    </Wrapper>
-  );
-}
+const MainWrapper = styled.div`
+  margin: 0 auto;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  padding: 1em;
+  margin-top: 50px;
+`;
+
+const ContentWrapper = styled.div`
+  padding: 1.5em;
+  width: 800px;
+`;
+
+const LeftSideBarWrapper = styled.div`
+  width: 220px;
+`;
+
+const RightSideBarWrapper = styled.div`
+  width: 180px;
+`;
+
+const App = props => (
+  <AppWrapper>
+    <NavBar />
+    <MainWrapper>
+      <LeftSideBarWrapper>
+        <LeftSideBar />
+      </LeftSideBarWrapper>
+
+      <ContentWrapper>
+        <Switch>
+          <Route path="/" exact component={HomePage} />
+          <Route path="/home" exact component={HomePage} />
+          <Route path="/home/myorders" component={MyOrdersPage} />
+          <Route path="/orders" component={OrdersPage} />
+          <Route path="/order/:orderid" component={OrderPage} />
+          <Route path="/profile" exact component={ProfilePage} />
+          <Route path="/profile/:userid" component={ProfilePage} />
+        </Switch>
+      </ContentWrapper>
+      <RightSideBarWrapper>
+        <RightSideBar />
+      </RightSideBarWrapper>
+    </MainWrapper>
+  </AppWrapper>
+);
+
+export default App;

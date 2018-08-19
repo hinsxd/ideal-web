@@ -7,35 +7,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import makeSelectMyOrdersPage from './selectors';
-import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
-/* eslint-disable react/prefer-stateless-function */
-export class MyOrdersPage extends React.Component {
-  render() {
-    return (
-      <div>
-        <FormattedMessage {...messages.header} />
-      </div>
-    );
-  }
+function MyOrdersPage() {
+  return <div>My Orders</div>;
 }
 
 MyOrdersPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
-
-const mapStateToProps = createStructuredSelector({
-  MyOrdersPage: makeSelectMyOrdersPage(),
-});
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -44,15 +27,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 const withConnect = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 );
-
-const withReducer = injectReducer({ key: 'MyOrdersPage', reducer });
-const withSaga = injectSaga({ key: 'MyOrdersPage', saga });
+const withSaga = injectSaga({ key: 'myorderspage', saga });
 
 export default compose(
-  withReducer,
   withSaga,
   withConnect,
 )(MyOrdersPage);
