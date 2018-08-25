@@ -1,0 +1,28 @@
+.itemWrapper {
+  margin-top: 20px;
+  .ui.segment.item__status--unread {
+    background: blue;
+    flex: 0 0 20px;
+    max-width: 20px;
+  }
+  .ui.segment.item__status--read {
+    background: red;
+    flex: 0 0 20px;
+    max-width: 20px;
+  }
+  .item__content {
+    flex: 1;
+    .item__content__topInfo {
+      margin-bottom: 10px;
+    }
+    .item__content__subject {
+      margin-bottom: 5px;
+    }
+    .item__content__type {
+      margin-bottom: 5px;
+    }
+  }
+  .item__action {
+    flex: 0 0 200px;
+  }
+}
