@@ -35,15 +35,17 @@ export class LoginPage extends React.Component {
     const { loading, loggedIn, user } = this.props.auth;
     return (
       <FormWrapper>
-        {loggedIn && <p>Logged in as {user.email}</p>}
-        <Button disabled={loggedIn} onClick={this.handleLoginGoogle}>
-          Sign in as Google
-        </Button>
-        <Button disabled={loggedIn} onClick={this.handleLoginFacebook}>
-          Sign in as Facebook
-        </Button>
+        <div>
+          {loggedIn && <p>Logged in as {user.email}</p>}
+          <Button disabled={loggedIn} onClick={this.handleLoginGoogle}>
+            Sign in as Google
+          </Button>
+          <Button disabled={loggedIn} onClick={this.handleLoginFacebook}>
+            Sign in as Facebook
+          </Button>
 
-        {loading && <p>Loading</p>}
+          {loading && <p>Loading</p>}
+        </div>
       </FormWrapper>
     );
   }
