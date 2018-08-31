@@ -1,6 +1,6 @@
 /*
  *
- * OrdersPage reducer
+ * SignupPage reducer
  *
  */
 
@@ -9,7 +9,7 @@ import { DEFAULT_ACTION } from './constants';
 
 export const initialState = fromJS({});
 
-function ordersPageReducer(state = initialState, action) {
+function signupPageReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -18,4 +18,4 @@ function ordersPageReducer(state = initialState, action) {
   }
 }
 
-export default ordersPageReducer;
+export default signupPageReducer;

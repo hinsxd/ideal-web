@@ -13,7 +13,8 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+
 import NavBar from 'components/NavBar';
 
 import LeftSideBar from 'components/LeftSideBar';
@@ -23,6 +24,10 @@ import MyOrdersPage from 'containers/MyOrdersPage';
 import OrdersPage from 'containers/OrdersPage';
 import OrderPage from 'containers/OrderPage';
 import ProfilePage from 'containers/ProfilePage';
+import LoginPage from 'containers/LoginPage';
+import injectSaga from 'utils/injectSaga';
+import { authSaga } from 'auth';
+
 const AppWrapper = styled.div`
   margin: 0 auto;
   max-width: 100%vw;
@@ -54,28 +59,38 @@ const RightSideBarWrapper = styled.div`
   width: 180px;
 `;
 
-const App = props => (
+const LoginContent = () => (
+  <React.Fragment>
+    <LeftSideBarWrapper>
+      <LeftSideBar />
+    </LeftSideBarWrapper>
+
+    <ContentWrapper>
+      <Switch>
+        <Route path="/" exact component={HomePage} />
+        <Route path="/home" exact component={HomePage} />
+        <Route path="/home/myorders" component={MyOrdersPage} />
+        <Route path="/orders" component={OrdersPage} />
+        <Route path="/order/:orderid" component={OrderPage} />
+        <Route path="/profile" exact component={ProfilePage} />
+        <Route path="/profile/:userid" component={ProfilePage} />
+      </Switch>
+    </ContentWrapper>
+    <RightSideBarWrapper>
+      <RightSideBar />
+    </RightSideBarWrapper>
+  </React.Fragment>
+);
+
+const App = () => (
   <AppWrapper>
     <NavBar />
     <MainWrapper>
-      <LeftSideBarWrapper>
-        <LeftSideBar />
-      </LeftSideBarWrapper>
+      <Switch>
+        <Route path="/login" component={LoginPage} />
 
-      <ContentWrapper>
-        <Switch>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/home" exact component={HomePage} />
-          <Route path="/home/myorders" component={MyOrdersPage} />
-          <Route path="/orders" component={OrdersPage} />
-          <Route path="/order/:orderid" component={OrderPage} />
-          <Route path="/profile" exact component={ProfilePage} />
-          <Route path="/profile/:userid" component={ProfilePage} />
-        </Switch>
-      </ContentWrapper>
-      <RightSideBarWrapper>
-        <RightSideBar />
-      </RightSideBarWrapper>
+        <Route render={LoginContent} />
+      </Switch>
     </MainWrapper>
   </AppWrapper>
 );

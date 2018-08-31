@@ -10,7 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 
 /* eslint-disable react/prefer-stateless-function */
-const LeftSideBar = props => (
+const LeftSideBar = () => (
   <Menu vertical pointing secondary fluid color="blue" size="large">
     <Menu.Item as={NavLink} exact to="/home" name="home" icon="home" />
     <Menu.Menu>

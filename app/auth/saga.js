@@ -2,9 +2,8 @@
 import firebase from 'firebase/app';
 import { all, call, fork, put, take, takeEvery } from 'redux-saga/effects';
 
-import rsf from '../../firebase';
-
-import { types } from './constants';
+import rsf from '../firebase';
+import { types, providers } from './constants';
 import {
   loginSuccess,
   loginFailure,
@@ -12,11 +11,20 @@ import {
   logoutFailure,
 } from './actions';
 
-const authProvider = new firebase.auth.GoogleAuthProvider();
-
-function* loginSaga() {
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+const facebookAuthProvider = new firebase.auth.FacebookAuthProvider();
+function* loginSaga(action) {
   try {
-    yield call(rsf.auth.signInWithPopup, authProvider);
+    switch (action.provider) {
+      case providers.GOOGLE:
+        yield call(rsf.auth.signInWithPopup, googleAuthProvider);
+        break;
+      case providers.FACEBOOK:
+        yield call(rsf.auth.signInWithPopup, facebookAuthProvider);
+        break;
+      default:
+        break;
+    }
     // successful login will trigger the loginStatusWatcher, which will update the state
   } catch (error) {
     yield put(loginFailure(error));
@@ -42,14 +50,10 @@ function* loginStatusWatcher() {
   }
 }
 
-export default function* loginRootSaga() {
+export default function* authSaga() {
   yield fork(loginStatusWatcher);
   yield all([
     takeEvery(types.LOGIN.REQUEST, loginSaga),
     takeEvery(types.LOGOUT.REQUEST, logoutSaga),
   ]);
 }
-// Individual exports for testing
-// export default function* defaultSaga() {
-// See example in containers/HomePage/saga.js
-// }

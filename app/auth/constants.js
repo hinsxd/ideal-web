@@ -1,11 +1,4 @@
-/*
- *
- * LoginPage constants
- *
- */
-
-export const DEFAULT_ACTION = 'app/LoginPage/DEFAULT_ACTION';
-export const types = {
+const types = {
   LOGIN: {
     REQUEST: 'LOGIN.REQUEST',
     SUCCESS: 'LOGIN.SUCCESS',
@@ -17,3 +10,10 @@ export const types = {
     FAILURE: 'LOGOUT.FAILURE',
   },
 };
+
+const providers = {
+  GOOGLE: 'GOOGLE',
+  FACEBOOK: 'FACEBOOK',
+};
+
+export { types, providers };

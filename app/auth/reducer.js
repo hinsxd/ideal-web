@@ -1,27 +1,25 @@
-/*
- *
- * LoginPage reducer
- *
- */
-
 import { fromJS } from 'immutable';
-import { DEFAULT_ACTION, types } from './constants';
+import { types } from './constants';
 
+// Initial auth state
 export const initialState = fromJS({
   loading: false,
   loggedIn: false,
   user: null,
 });
 
-const loginPageReducer = (state = initialState, action) => {
+/**
+ * Auth reducer
+ */
+export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case types.LOGIN.REQUEST:
     case types.LOGOUT.REQUEST:
       return state.set('loading', true);
     case types.LOGIN.SUCCESS:
       return state
-        .set('loading', true)
-        .set('loggedIn', false)
+        .set('loading', false)
+        .set('loggedIn', true)
         .set('user', action.user);
     case types.LOGIN.FAILURE:
       return state.set('loading', false);
@@ -32,11 +30,7 @@ const loginPageReducer = (state = initialState, action) => {
         .set('user', null);
     case types.LOGOUT.FAILURE:
       return state.set('loading', false);
-    case DEFAULT_ACTION:
-      return state;
     default:
       return state;
   }
-};
-
-export default loginPageReducer;
+}

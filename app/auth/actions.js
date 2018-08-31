@@ -1,19 +1,14 @@
 /*
  *
- * LoginPage actions
+ * Auth actions
  *
  */
 
-import { DEFAULT_ACTION, types } from './constants';
+import { types } from './constants';
 
-export function defaultAction() {
-  return {
-    type: DEFAULT_ACTION,
-  };
-}
-
-export const login = () => ({
+export const login = provider => ({
   type: types.LOGIN.REQUEST,
+  provider,
 });
 
 export const loginSuccess = user => ({
