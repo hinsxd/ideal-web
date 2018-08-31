@@ -88,7 +88,6 @@ const App = () => (
     <MainWrapper>
       <Switch>
         <Route path="/login" component={LoginPage} />
-
         <Route render={LoginContent} />
       </Switch>
     </MainWrapper>

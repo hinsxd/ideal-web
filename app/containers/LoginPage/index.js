@@ -20,6 +20,9 @@ import { login, logout } from 'auth/actions';
 //   password: '',
 // };
 
+const FormWrapper = styled.div`
+  margin: 0 auto;
+`;
 /* eslint-disable react/prefer-stateless-function */
 export class LoginPage extends React.Component {
   handleLoginGoogle = () => {
@@ -31,7 +34,7 @@ export class LoginPage extends React.Component {
   render() {
     const { loading, loggedIn, user } = this.props.auth;
     return (
-      <div>
+      <FormWrapper>
         {loggedIn && <p>Logged in as {user.email}</p>}
         <Button disabled={loggedIn} onClick={this.handleLoginGoogle}>
           Sign in as Google
@@ -41,7 +44,7 @@ export class LoginPage extends React.Component {
         </Button>
 
         {loading && <p>Loading</p>}
-      </div>
+      </FormWrapper>
     );
   }
 }
