@@ -6,6 +6,7 @@ export const initialState = fromJS({
   loading: false,
   loggedIn: false,
   user: null,
+  error: null,
 });
 
 /**
@@ -20,16 +21,18 @@ export default function authReducer(state = initialState, action) {
       return state
         .set('loading', false)
         .set('loggedIn', true)
-        .set('user', action.user);
+        .set('user', action.user)
+        .set('error', null);
     case types.LOGIN.FAILURE:
-      return state.set('loading', false);
+      return state.set('loading', false).set('error', action.error);
     case types.LOGOUT.SUCCESS:
       return state
         .set('loading', false)
         .set('loggedIn', false)
-        .set('user', null);
+        .set('user', null)
+        .set('error', null);
     case types.LOGOUT.FAILURE:
-      return state.set('loading', false);
+      return state.set('loading', false).set('error', action.error);
     default:
       return state;
   }

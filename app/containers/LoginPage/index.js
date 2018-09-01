@@ -32,11 +32,12 @@ export class LoginPage extends React.Component {
     this.props.login(providers.FACEBOOK);
   };
   render() {
-    const { loading, loggedIn, user } = this.props.auth;
+    const { loading, loggedIn, user, error } = this.props.auth;
     return (
       <FormWrapper>
         <div>
           {loggedIn && <p>Logged in as {user.email}</p>}
+          {error && <p>{error.message}</p>}
           <Button disabled={loggedIn} onClick={this.handleLoginGoogle}>
             Sign in as Google
           </Button>
