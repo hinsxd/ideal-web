@@ -12,8 +12,6 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectProfilePage from './selectors';
-import reducer from './reducer';
 import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -32,9 +30,7 @@ ProfilePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  profilepage: makeSelectProfilePage(),
-});
+const mapStateToProps = null;
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -47,11 +43,9 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'profilePage', reducer });
 const withSaga = injectSaga({ key: 'profilePage', saga });
 
 export default compose(
-  withReducer,
   withSaga,
   withConnect,
 )(ProfilePage);

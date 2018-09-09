@@ -10,6 +10,7 @@ import { Segment, Icon, Button, Header } from 'semantic-ui-react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import numeral from 'numeral';
+import moment from 'moment';
 class OrderItem extends React.Component {
   state = { isExtraVisible: false };
 
@@ -60,8 +61,8 @@ class OrderItem extends React.Component {
       <ItemWrapper>
         <ItemTopInfo color={isRead ? 'teal' : 'blue'} inverted compact>
           {isRead ? 'Read' : 'Not Read'}
-          <ItemTime>{created.format('Do MMMM YYYY, h:mm a')}</ItemTime>
-          <ItemTime>{deadline.format('Do MMMM YYYY, h:mm a')}</ItemTime>
+          <ItemTime>{moment(created).format('Do MMMM YYYY, h:mm a')}</ItemTime>
+          <ItemTime>{moment(deadline).format('Do MMMM YYYY, h:mm a')}</ItemTime>
         </ItemTopInfo>
         <Segment.Group horizontal compact raised>
           <ItemContent>
@@ -106,8 +107,8 @@ OrderItem.propTypes = {
   subject: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  created: PropTypes.object.isRequired,
-  deadline: PropTypes.object.isRequired,
+  created: PropTypes.number.isRequired,
+  deadline: PropTypes.number.isRequired,
 };
 
 export default OrderItem;

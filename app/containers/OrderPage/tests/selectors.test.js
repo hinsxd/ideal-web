@@ -1,4 +1,4 @@
-// import { fromJS } from 'immutable';
+
 // import { selectOrderPageDomain } from '../selectors';
 
 describe('selectOrderPageDomain', () => {

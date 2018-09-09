@@ -5,18 +5,15 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
 import { Header, Card, Icon, Progress } from 'semantic-ui-react';
 import H2 from 'components/H2';
 import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import makeSelectHomePage from './selectors';
-import reducer from './reducer';
+import { userIsAuthenticated, userIsNotAuthenticated } from 'utils/router';
 import saga from './saga';
 /* eslint-disable react/prefer-stateless-function */
 export class HomePage extends React.Component {
@@ -78,12 +75,10 @@ export class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  HomePage: makeSelectHomePage(),
-});
+const mapStateToProps = null;
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -96,11 +91,11 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'HomePage', reducer });
 const withSaga = injectSaga({ key: 'HomePage', saga });
 
 export default compose(
-  withReducer,
+  withRouter,
   withSaga,
   withConnect,
+  userIsAuthenticated,
 )(HomePage);

@@ -7,13 +7,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import makeSelectOrderPage from './selectors';
-import reducer from './reducer';
 import saga from './saga';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -28,9 +24,7 @@ OrderPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  orderpage: makeSelectOrderPage(),
-});
+const mapStateToProps = null;
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -43,11 +37,9 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-const withReducer = injectReducer({ key: 'orderPage', reducer });
 const withSaga = injectSaga({ key: 'orderPage', saga });
 
 export default compose(
-  withReducer,
   withSaga,
   withConnect,
 )(OrderPage);

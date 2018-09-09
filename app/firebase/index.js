@@ -1,2 +1,7 @@
-import rsf from './firebase';
-export default rsf;
+export { rrf } from './firebase';
+export {
+  selectAuth,
+  selectProfile,
+  authenticated,
+  authenticating,
+} from './selectors';

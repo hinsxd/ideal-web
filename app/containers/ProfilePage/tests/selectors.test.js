@@ -1,4 +1,4 @@
-// import { fromJS } from 'immutable';
+//
 // import { selectProfilePageDomain } from '../selectors';
 
 describe('selectProfilePageDomain', () => {

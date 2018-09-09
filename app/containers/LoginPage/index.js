@@ -9,43 +9,46 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Button, Checkbox, Form, Divider } from 'semantic-ui-react';
-import { makeSelectAuth, providers } from 'auth';
-import { login, logout } from 'auth/actions';
-
-// const INITIAL_STATE = {
-//   email: '',
-//   password: '',
-// };
+import { Button } from 'semantic-ui-react';
+import { isLoaded, isEmpty, withFirebase } from 'react-redux-firebase';
+import { userIsNotAuthenticated } from 'utils/router';
+import { selectAuth, selectProfile } from '../../firebase';
 
 const FormWrapper = styled.div`
   margin: 0 auto;
 `;
 /* eslint-disable react/prefer-stateless-function */
 export class LoginPage extends React.Component {
-  handleLoginGoogle = () => {
-    this.props.login(providers.GOOGLE);
-  };
-  handleLoginFacebook = () => {
-    this.props.login(providers.FACEBOOK);
-  };
   render() {
-    const { loading, loggedIn, user, error } = this.props.auth;
+    const { firebase, auth, profile } = this.props;
     return (
       <FormWrapper>
         <div>
-          {loggedIn && <p>Logged in as {user.email}</p>}
-          {error && <p>{error.message}</p>}
-          <Button disabled={loggedIn} onClick={this.handleLoginGoogle}>
-            Sign in as Google
+          <Button // <GoogleButton/> button can be used instead
+            onClick={() =>
+              firebase.login({ provider: 'google', type: 'popup' })
+            }
+          >
+            Login With Google
           </Button>
-          <Button disabled={loggedIn} onClick={this.handleLoginFacebook}>
-            Sign in as Facebook
+          <Button
+            onClick={() =>
+              firebase.login({ provider: 'facebook', type: 'popup' })
+            }
+          >
+            Login With Facebook
           </Button>
-
-          {loading && <p>Loading</p>}
+          <div>
+            <h2>Auth</h2>
+            {!isLoaded(auth) ? (
+              <span>Loading...</span>
+            ) : isEmpty(auth) ? (
+              <span>Not Authed</span>
+            ) : (
+              <pre>{JSON.stringify(auth, null, 2)}</pre>
+            )}
+          </div>
         </div>
       </FormWrapper>
     );
@@ -53,17 +56,17 @@ export class LoginPage extends React.Component {
 }
 
 LoginPage.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = createStructuredSelector({
-  auth: makeSelectAuth(),
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
+  profile: state.firebase.profile,
 });
 
-const mapDispatchToProps = {
-  login,
-  logout,
-};
+const mapDispatchToProps = dispatch => ({
+  dispatch,
+});
 
 const withConnect = connect(
   mapStateToProps,
@@ -72,5 +75,6 @@ const withConnect = connect(
 
 export default compose(
   withRouter,
+  withFirebase,
   withConnect,
 )(LoginPage);

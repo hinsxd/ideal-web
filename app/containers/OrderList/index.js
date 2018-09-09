@@ -10,16 +10,16 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import OrderItem from 'components/OrderItem';
 
-const OrderList = ({ orders: { data } }) =>
-  data.length > 0 ? (
-    data.map(order => <OrderItem {...order} key={order.id} />)
+const OrderList = ({ orders }) =>
+  orders.length > 0 ? (
+    orders.map(order => <OrderItem {...order} key={order.id} />)
   ) : (
     <h2>No orders</h2>
   );
 
 OrderList.propTypes = {
-  orders: PropTypes.object.isRequired,
-  // dispatch: PropTypes.func.isRequired,
+  orders: PropTypes.array.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {

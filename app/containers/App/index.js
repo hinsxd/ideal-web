@@ -19,15 +19,19 @@ import NavBar from 'components/NavBar';
 
 import LeftSideBar from 'components/LeftSideBar';
 import RightSideBar from 'components/RightSideBar';
-import HomePage from 'containers/HomePage';
-import MyOrdersPage from 'containers/MyOrdersPage';
-import OrdersPage from 'containers/OrdersPage';
-import OrderPage from 'containers/OrderPage';
-import ProfilePage from 'containers/ProfilePage';
-import LoginPage from 'containers/LoginPage';
-import injectSaga from 'utils/injectSaga';
-import { authSaga } from 'auth';
-
+import HomePage from 'containers/HomePage/Loadable';
+import MyOrdersPage from 'containers/MyOrdersPage/Loadable';
+import OrdersPage from 'containers/OrdersPage/Loadable';
+import OrderPage from 'containers/OrderPage/Loadable';
+import ProfilePage from 'containers/ProfilePage/Loadable';
+import LoginPage from 'containers/LoginPage/Loadable';
+import WelcomePage from 'containers/WelcomePage/Loadable';
+import {
+  // userIsAuthenticated,
+  userIsNotAuthenticated,
+  PrivateRoute,
+  PublicRoute,
+} from 'utils/router';
 const AppWrapper = styled.div`
   margin: 0 auto;
   max-width: 100%vw;
@@ -67,13 +71,12 @@ const LoginContent = () => (
 
     <ContentWrapper>
       <Switch>
-        <Route path="/" exact component={HomePage} />
-        <Route path="/home" exact component={HomePage} />
-        <Route path="/home/myorders" component={MyOrdersPage} />
-        <Route path="/orders" component={OrdersPage} />
-        <Route path="/order/:orderid" component={OrderPage} />
-        <Route path="/profile" exact component={ProfilePage} />
-        <Route path="/profile/:userid" component={ProfilePage} />
+        <PrivateRoute path="/home" exact component={HomePage} />
+        <PrivateRoute path="/home/myorders" component={MyOrdersPage} />
+        <PrivateRoute path="/orders" component={OrdersPage} />
+        <PrivateRoute path="/order/:orderid" component={OrderPage} />
+        <PrivateRoute path="/profile" exact component={ProfilePage} />
+        <PrivateRoute path="/profile/:userid" component={ProfilePage} />
       </Switch>
     </ContentWrapper>
     <RightSideBarWrapper>
@@ -87,7 +90,11 @@ const App = () => (
     <NavBar />
     <MainWrapper>
       <Switch>
-        <Route path="/login" component={LoginPage} />
+        <Route path="/" exact component={WelcomePage} />
+        <PublicRoute
+          path="/login"
+          component={userIsNotAuthenticated(LoginPage)}
+        />
         <Route render={LoginContent} />
       </Switch>
     </MainWrapper>

@@ -10,38 +10,32 @@ import { compose } from 'redux';
 import { Link, NavLink, withRouter } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
-import { createStructuredSelector } from 'reselect';
 import { Button, Menu, Icon } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { makeSelectAuth, providers } from 'auth';
-import { login, logout } from 'auth/actions';
+import { isLoaded, isEmpty, withFirebase } from 'react-redux-firebase';
+import { selectAuth } from '../../firebase';
 
 class NavBar extends React.Component {
   state = {};
   render() {
-    const { loading, loggedIn, user } = this.props.auth;
+    const { firebase, auth, profile } = this.props;
     return (
       <Menu fixed="top">
         <Menu.Menu position="right">
-          {this.props.loggedIn ? (
-            <Menu.Item>
-              <Button primary onClick={() => this.props.dispatch(logout())}>
-                Log Out
-              </Button>
-            </Menu.Item>
-          ) : (
-            <Menu.Item>
-              {loggedIn ? (
-                <Button primary onClick={this.props.logout}>
+          <Menu.Item>
+            {!isEmpty(auth) ? (
+              <React.Fragment>
+                <span>Logged in as {auth.email}</span>
+                <Button primary onClick={() => firebase.logout()}>
                   Logout
                 </Button>
-              ) : (
-                <Button primary as={Link} to="/login">
-                  Get Started
-                </Button>
-              )}
-            </Menu.Item>
-          )}
+              </React.Fragment>
+            ) : (
+              <Button primary as={Link} to="/login">
+                Get Started
+              </Button>
+            )}
+          </Menu.Item>
         </Menu.Menu>
       </Menu>
     );
@@ -53,13 +47,13 @@ NavBar.propTypes = {
   // loggedIn: PropTypes.bool,
 };
 
-const mapStateToProps = createStructuredSelector({
-  auth: makeSelectAuth(),
+const mapStateToProps = state => ({
+  auth: state.firebase.auth,
 });
 
-const mapDispatchToProps = {
-  logout,
-};
+const mapDispatchToProps = dispatch => ({
+  dispatch,
+});
 
 const withConnect = connect(
   mapStateToProps,
@@ -68,5 +62,6 @@ const withConnect = connect(
 
 export default compose(
   withRouter,
+  withFirebase,
   withConnect,
 )(NavBar);
